@@ -1,0 +1,42 @@
+server:
+  port: 8081
+
+spring:
+
+  jpa:
+    generate-ddl: true #容器启动时自动建表
+    show-sql: true
+    hibernate:
+      ddl-auto: none #指定应用重启时不重新更新表
+
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://42.192.145.61:3306/test?useUnicode=true&serverTimezone=Asia/Shanghai&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: irony
+
+  application:
+    name: depart-provider
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848,localhost:8850,localhost:8852
+        username: nacos
+        password: nacos
+
+logging:
+  pattern:
+    console: level-%level %msg%n  #控制台日志输出格式
+  level:   #日志输出级别
+    root: info
+    com.zgm: debug
+    org.hibernate: info
+    org.hibernate.type.descriptor.sql.BasicBinder: trace # show-sql开启时，显示sql中的动态参数值
+    org.hibernate.type.descriptor.sql.BasicExtractor: trace # show-sql开启时，显示查询的结果
+
+
+
+
+
