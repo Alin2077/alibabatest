@@ -11,45 +11,48 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import com.zgm.bean.Depart;
+import com.zgm.service.DepartService;
 
 @RequestMapping("/consumer/depart")
 @RestController
 public class DepartController {
     
     @Autowired
-    private RestTemplate restTemplate;
+    private DepartService departService;
+
+    // @Autowired
+    // private RestTemplate restTemplate;
 
     // private static final String PROVIDER_URL = "http://localhost:8081/provider/depart/";  //直连
 
     //微服务方式 --  通过注册中心
-    private static final String PROVIDER_URL = "http://depart-provider/provider/depart/";
+    // private static final String PROVIDER_URL = "http://depart-provider/provider/depart/";
 
     @PostMapping("/")
     public boolean saveHandle(@RequestBody Depart depart){
-        return restTemplate.postForObject(PROVIDER_URL, depart, Boolean.class);
+        return departService.saveDepart(depart);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteHandle(@PathVariable("id") int id){
-        restTemplate.delete(PROVIDER_URL,id);
+    public boolean deleteHandle(@PathVariable("id") int id){
+        return departService.removeDepartById(id);
     }
 
     @PutMapping("/")
-    public void updateHandle(@RequestBody Depart depart){
-        restTemplate.put(PROVIDER_URL, depart);
+    public boolean updateHandle(@RequestBody Depart depart){
+        return departService.modifyDepart(depart);
     }
 
     @GetMapping("/{id}")
     public Depart getHandle(@PathVariable("id") int id){
-        return restTemplate.getForObject(PROVIDER_URL+id, Depart.class);
+        return departService.getDepartById(id);
     }
 
     @GetMapping("/list")
     public List<Depart> getAllHandle(){
-        return restTemplate.getForObject(PROVIDER_URL+"list", List.class);
+        return departService.getAllDepart();
     }
 
 }

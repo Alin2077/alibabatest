@@ -1,4 +1,5 @@
 spring:
+
   application:
     name: depart-provider
 
@@ -10,6 +11,16 @@ spring:
         username: nacos
         password: nacos
 
+        shared-configs[0]:
+          data_id: tent-db.yml
+          refresh: true
+
+        extension-configs[0]:
+          data_id: log.yml
+          refresh: true
+
   config:
     import:
       - optional:nacos:${spring.application.name}.${spring.cloud.nacos.config.file-extension}
+      - optional:nacos:tent-db.yml
+      - optional:nacos:log.yml

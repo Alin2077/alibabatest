@@ -39,10 +39,16 @@
     		<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
 		</dependency>
 
-		<!-- 新版本已经去掉了ribben，需要添加这个依赖才可以实现负载均衡调用注册进的服务  -->
+		<!-- 新版本已经去掉了ribbon，需要添加这个依赖才可以实现负载均衡调用注册进的服务  -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-loadbalancer</artifactId>
+		</dependency>
+
+		<!-- 引入 open feign -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
 
 	</dependencies>

@@ -3,7 +3,6 @@ package com.zgm.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +25,6 @@ public class DepartController {
 
     @Autowired
     private DiscoveryClient discoveryClient;
-
-    @Value("${server.port}")
-    private int port;
 
     @PostMapping("/")
     public boolean saveHandle(@RequestBody Depart depart){
