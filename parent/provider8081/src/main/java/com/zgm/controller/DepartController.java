@@ -44,6 +44,12 @@ public class DepartController {
     @GetMapping("/{id}")
     public Depart getHandle(@PathVariable("id") int id){
 
+        // try {
+        //     TimeUnit.SECONDS.sleep(5);
+        // } catch (InterruptedException e) {
+        //     e.printStackTrace();
+        // }
+
         return departService.getDepartById(id);
     }
 
