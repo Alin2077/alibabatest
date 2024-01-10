@@ -18,4 +18,22 @@ public class GatewayConfig {
         return builder.routes().route("cookie_route", ps -> ps.cookie("city", "shanghai").uri("https://jd.com")).build();
     }
 
+    @Bean
+    public RouteLocator filterAddRequestHeaderRouteLocator(RouteLocatorBuilder builder){
+        return builder.routes().route("addRequest_route",ps -> 
+                                                    ps.path("/**").filters((fs -> fs.addRequestHeader("X-Request_coolor", "blue")
+                                                                                                .addRequestHeader("X-Request_coolor", "red")))
+                                                    .uri("http://localhost:8081")).build();
+    }
+
+    @Bean
+    public RouteLocator filterAddRequestHeadersIfNotPresentRouteLocator(RouteLocatorBuilder builder){
+        return builder.routes()
+                      .route("filterAddHeadersIfNotPresent_route",
+                      ps -> ps.path("/**")
+                              .filters(fs -> fs.addRequestHeadersIfNotPresent("X-Request-Color:blue","city:beijing"))
+                              .uri("http://localhost:8081")).build();
+    }   
+
 }
+ 
