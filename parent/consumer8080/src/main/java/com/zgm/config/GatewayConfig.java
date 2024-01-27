@@ -1,9 +1,12 @@
 package com.zgm.config;
 
+import org.springframework.cloud.gateway.filter.ratelimit.KeyResolver;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import reactor.core.publisher.Mono;
 
 @Configuration
 public class GatewayConfig {
@@ -34,6 +37,18 @@ public class GatewayConfig {
                               .filters(fs -> fs.addRequestHeadersIfNotPresent("X-Request-Color:blue","city:beijing"))
                               .uri("http://localhost:8081")).build();
     }   
+
+    // 限流维度的实现类(只能有一个)
+    @Bean
+    KeyResolver userKeyResolver(){
+        return exchange -> Mono.just(exchange.getRequest().getQueryParams().getFirst("user"));
+    }
+
+    // @Bean
+    // KeyResolver hostKeyResolver(){
+    //     return exchange -> Mono.just(exchange.getRequest().getRemoteAddress().getHostName());
+    // }
+
 
 }
  
